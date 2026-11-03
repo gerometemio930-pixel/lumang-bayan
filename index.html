@@ -1,0 +1,2853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barangay Lumang Bayan Online Services Portal</title>
+  <meta name="description" content="Official Online Services Portal of Barangay Lumang Bayan, Sitio Matabang, Abra de Ilog, Occidental Mindoro. Fast, reliable, and accessible public service.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       GOVERNMENT DESIGN SYSTEM - GREEN THEME (BARANGAY LUMANG BAYAN)
+       ========================================================================== */
+    :root {
+      --gov-green-darkest: #022c22;
+      --gov-green-dark: #064e3b;
+      --gov-green: #065f46;
+      --gov-green-mid: #059669;
+      --gov-green-light: #10b981;
+      --gov-green-subtle: #ecfdf5;
+      --gov-green-surface: #f0fdf4;
+      --gov-gold: #f59e0b;
+      --gov-gold-dark: #d97706;
+      --gov-gold-light: #fef3c7;
+      --gov-red: #dc2626;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --bg-page: #f0fdf4;
+      --bg-surface: #ffffff;
+      --border-color: #cbd5e1;
+      --border-subtle: #dcfce7;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 12px 24px -4px rgba(6, 78, 59, 0.15), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Top Official Government Banner Strip */
+    .gov-ph-strip {
+      background: #022c22;
+      color: #a7f3d0;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 8px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--gov-gold);
+    }
+
+    .gov-ph-strip .ph-seal-tiny {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #ecfdf5;
+      flex-wrap: wrap;
+    }
+
+    .gov-ph-strip .official-location-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gov-gold-light);
+      font-weight: 700;
+    }
+
+    /* Views container */
+    .view-container {
+      display: none;
+      min-height: calc(100vh - 37px);
+    }
+
+    .view-container.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       VIEW 1: AUTHENTICATION SCREEN (SIGN IN / SIGN UP)
+       ========================================================================== */
+    #view-login.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      background: radial-gradient(circle at 50% 20%, #065f46 0%, #064e3b 45%, #022c22 100%);
+      position: relative;
+    }
+
+    .login-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 25px 50px -12px rgba(2, 44, 34, 0.6);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .login-header {
+      background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+      color: #ffffff;
+      padding: 30px 28px 22px;
+      text-align: center;
+      position: relative;
+      border-bottom: 3px solid var(--gov-gold);
+    }
+
+    .brgy-official-logo {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      border: 3px solid #ffffff;
+      object-fit: cover;
+      display: block;
+      background: #ffffff;
+    }
+
+    .login-header h1 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .login-header .official-address-text {
+      font-size: 13px;
+      color: #a7f3d0;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .login-header .sub-caption {
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .login-header .badge-motto {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid var(--gov-gold);
+      color: #fef3c7;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Role Switcher Tabs (3 Interactive Tabs: Sign In, Sign Up, Admin) */
+    .role-tabs {
+      display: flex;
+      background: #ecfdf5;
+      padding: 6px;
+      border-bottom: 1px solid #d1fae5;
+      gap: 4px;
+    }
+
+    .role-tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 11px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #065f46;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .role-tab-btn.active {
+      background: #ffffff;
+      color: #064e3b;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #d1fae5;
+    }
+
+    .login-body {
+      padding: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-main);
+      background-color: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gov-green-mid);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Password Input with Eye Visibility Toggle */
+    .password-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-input-wrapper .form-input {
+      padding-right: 46px;
+    }
+
+    .btn-toggle-password {
+      position: absolute;
+      right: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px 8px;
+      font-size: 16px;
+      color: #065f46;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .btn-toggle-password:hover {
+      background: #ecfdf5;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gov-green) 0%, var(--gov-green-dark) 100%);
+      color: #ffffff;
+      border: none;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px -1px rgba(6, 78, 59, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #047857 0%, #022c22 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -2px rgba(6, 78, 59, 0.4);
+    }
+
+    /* Testing Credentials Box */
+    .demo-hint-box {
+      margin-top: 20px;
+      background: #f0fdf4;
+      border: 1px dashed #6ee7b7;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+
+    .demo-hint-header {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #065f46;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hint-quick-btn {
+      background: #a7f3d0;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #064e3b;
+      cursor: pointer;
+    }
+
+    .hint-quick-btn:hover {
+      background: #6ee7b7;
+    }
+
+    .demo-hint-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #1e293b;
+    }
+
+    .error-alert {
+      display: none;
+      background: #fee2e2;
+      border: 1px solid #f87171;
+      color: #b91c1c;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .success-alert {
+      display: none;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      color: #166534;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    /* ==========================================================================
+       DASHBOARD SHARED LAYOUT (RESIDENT & ADMIN - GREEN THEME)
+       ========================================================================== */
+    .dashboard-layout {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 37px);
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background: #064e3b;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-brand {
+      padding: 20px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: #022c22;
+    }
+
+    .sidebar-brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      background: #ffffff;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand-text h2 {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .sidebar-brand-text p {
+      font-size: 11px;
+      color: var(--gov-gold);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .sidebar-location-note {
+      padding: 10px 18px;
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 11px;
+      color: #a7f3d0;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      line-height: 1.4;
+    }
+
+    .sidebar-user {
+      padding: 16px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gov-gold) 0%, var(--gov-gold-dark) 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+    }
+
+    .user-avatar.admin-avatar {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .user-info h3 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .user-info .role-badge {
+      display: inline-block;
+      margin-top: 3px;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      background: rgba(245, 158, 11, 0.25);
+      color: #fef3c7;
+    }
+
+    .role-badge.badge-admin {
+      background: rgba(16, 185, 129, 0.25);
+      color: #a7f3d0;
+    }
+
+    /* Navigation Links */
+    .sidebar-nav {
+      flex: 1;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      color: #d1fae5;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .nav-item.active {
+      background: #059669;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-item .nav-icon {
+      font-size: 16px;
+      width: 22px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 14px 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item.nav-logout {
+      color: #fca5a5;
+    }
+
+    .nav-item.nav-logout:hover {
+      background: rgba(220, 38, 38, 0.25);
+      color: #ffffff;
+    }
+
+    /* Main Dashboard Content Area */
+    .dashboard-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: calc(100vh - 37px);
+      background-color: var(--bg-page);
+    }
+
+    .main-topbar {
+      background: #ffffff;
+      padding: 14px 30px;
+      border-bottom: 1px solid #d1fae5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-title h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gov-green-dark);
+    }
+
+    .topbar-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .location-badge-topbar {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #065f46;
+      background: #ecfdf5;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid #a7f3d0;
+    }
+
+    .main-content-body {
+      padding: 28px 30px;
+      flex: 1;
+    }
+
+    /* Tab Sections */
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    /* ==========================================================================
+       CARDS & STATS
+       ========================================================================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px solid #d1fae5;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.green { background: #d1fae5; color: #065f46; }
+    .stat-icon.yellow { background: #fef3c7; color: #b45309; }
+    .stat-icon.emerald { background: #a7f3d0; color: #047857; }
+    .stat-icon.blue { background: #e0f2fe; color: #0369a1; }
+
+    .stat-info .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .stat-info .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .panel-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid #d1fae5;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gov-green-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-body {
+      padding: 22px;
+    }
+
+    /* Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .gov-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    .gov-table th {
+      background: #f8fafc;
+      padding: 12px 14px;
+      font-weight: 700;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .gov-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #1e293b;
+      vertical-align: middle;
+    }
+
+    .gov-table tr:hover {
+      background-color: #f0fdf4;
+    }
+
+    .ref-code {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #065f46;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .status-badge.pending {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .status-badge.approved {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-badge.rejected {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    /* Action Buttons in Tables */
+    .btn-action-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-table-action {
+      border: none;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+
+    .btn-approve {
+      background: #059669;
+      color: #ffffff;
+    }
+    .btn-approve:hover { background: #047857; }
+
+    .btn-reject {
+      background: #dc2626;
+      color: #ffffff;
+    }
+    .btn-reject:hover { background: #b91c1c; }
+
+    .btn-view-cert {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-view-cert:hover { background: #0369a1; }
+
+    /* Announcements Feed */
+    .announcement-card {
+      background: #ffffff;
+      border-left: 4px solid var(--gov-green-mid);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      border-top: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .announcement-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .announcement-category {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: #ecfdf5;
+      color: #065f46;
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid #a7f3d0;
+    }
+
+    .announcement-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .announcement-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gov-green-dark);
+      margin-bottom: 6px;
+    }
+
+    .announcement-content {
+      font-size: 13.5px;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .announcement-author {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* Modal for Certificate Preview & Print */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 44, 34, 0.7);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(3px);
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid #a7f3d0;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-header {
+      padding: 16px 22px;
+      background: var(--gov-green-dark);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .printable-doc {
+      border: 3px double #064e3b;
+      padding: 34px;
+      background: #ffffff;
+      position: relative;
+    }
+
+    .doc-header {
+      text-align: center;
+      border-bottom: 2px solid var(--gov-green);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .doc-header-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .doc-header p {
+      font-size: 11.5px;
+      color: #475569;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .doc-header h2 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gov-green-dark);
+      margin-top: 4px;
+    }
+
+    .doc-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--gov-green);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 24px 0 20px;
+    }
+
+    .doc-body-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #1e293b;
+      text-align: justify;
+      margin-bottom: 30px;
+    }
+
+    .doc-signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 44px;
+    }
+
+    .sig-box {
+      text-align: center;
+      width: 220px;
+    }
+
+    .sig-line {
+      border-top: 1px solid #000;
+      margin-top: 40px;
+      padding-top: 4px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .sig-title {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover { background: #cbd5e1; }
+
+    /* Keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Print styles */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .printable-doc, .printable-doc * {
+        visibility: visible;
+      }
+      .printable-doc {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none;
+      }
+    }
+
+    @media (max-width: 840px) {
+      .dashboard-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .nav-item {
+        width: auto;
+      }
+      .role-tabs {
+        flex-wrap: wrap;
+      }
+      .role-tab-btn {
+        font-size: 12px;
+        padding: 9px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Philippine Government Authority Strip -->
+  <header class="gov-ph-strip">
+    <div class="ph-seal-tiny">
+      <span>REPUBLIC OF THE PHILIPPINES</span>
+      <span>•</span>
+      <span>PROVINCE OF OCCIDENTAL MINDORO</span>
+      <span>•</span>
+      <span>MUNICIPALITY OF ABRA DE ILOG</span>
+    </div>
+    <div class="official-location-badge">
+      <span>📍 Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro</span>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       VIEW 1: AUTHENTICATION SCREEN (Sign In / Sign Up / Admin Desk)
+       ======================================================================== -->
+  <main id="view-login" class="view-container active">
+    <div class="login-card">
+      <div class="login-header">
+        <!-- Original Official Logo -->
+        <img src="/logo.png" onerror="this.onerror=null; this.src='assets/aistudio/logo_2f79370c.png';" alt="Barangay Lumang Bayan Official Logo" class="brgy-official-logo">
+
+        <h1 id="portal-title-text">BARANGAY LUMANG BAYAN</h1>
+        <p class="official-address-text">Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro</p>
+        <p class="sub-caption" id="portal-sub-text">Official Online Citizen & Public Services Portal</p>
+        <div class="badge-motto">Integrity, Transparency, and Service Excellence</div>
+      </div>
+
+      <!-- 3 Functional Tabs: Sign In, Sign Up (Create Account), and Admin -->
+      <div class="role-tabs">
+        <button type="button" id="tab-resident-signin-btn" class="role-tab-btn active" onclick="switchAuthMode('signin-resident')">
+          <span>👤</span> Sign In
+        </button>
+        <button type="button" id="tab-resident-signup-btn" class="role-tab-btn" onclick="switchAuthMode('signup-resident')">
+          <span>📝</span> Sign Up (Create Account)
+        </button>
+        <button type="button" id="tab-admin-signin-btn" class="role-tab-btn" onclick="switchAuthMode('signin-admin')">
+          <span>🏛️</span> Admin Office
+        </button>
+      </div>
+
+      <div class="login-body">
+        <div id="login-error-alert" class="error-alert"></div>
+        <div id="login-success-alert" class="success-alert"></div>
+
+        <!-- 1. SIGN IN FORM (Resident & Admin) -->
+        <form id="login-form" onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" id="label-identifier">Email Address or Username</label>
+            <input type="text" id="input-identifier" class="form-input" placeholder="e.g., resident@email.com" required value="resident@email.com">
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label class="form-label" style="margin-bottom: 0;">Password</label>
+              <a href="javascript:void(0)" onclick="openForgotPasswordModal()" style="font-size: 12px; color: #059669; font-weight: 700; text-decoration: none;">
+                Forgot Password?
+              </a>
+            </div>
+            <div class="password-input-wrapper">
+              <input type="password" id="input-password" class="form-input" placeholder="Enter your password" required value="password123">
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('input-password', this)" title="Show/Hide Password">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-login-submit" class="btn-primary">
+            <span>Sign In</span> ➔
+          </button>
+
+          <p id="toggle-to-signup-link" style="margin-top: 14px; text-align: center; font-size: 13px; color: var(--text-muted);">
+            Don't have an account yet?
+            <a href="javascript:void(0)" onclick="switchAuthMode('signup-resident')" style="color: #065f46; font-weight: 700; text-decoration: underline;">
+              Create an Account (Sign Up)
+            </a>
+          </p>
+        </form>
+
+        <!-- 2. SIGN UP / CREATE ACCOUNT FORM -->
+        <form id="signup-form" style="display: none;" onsubmit="handleSignupSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Full Legal Name *</label>
+            <input type="text" id="signup-fullname" class="form-input" placeholder="e.g., Roberto M. Gonzales" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" id="signup-email" class="form-input" placeholder="e.g., roberto@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Residential Address *</label>
+            <input type="text" id="signup-address" class="form-input" value="Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label class="form-label">Create Password *</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="signup-password" class="form-input" placeholder="Min. 6 characters" minlength="6" required>
+                <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('signup-password', this)" title="Show/Hide Password">
+                  👁️
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Confirm Password *</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="signup-confirmpassword" class="form-input" placeholder="Re-type password" minlength="6" required>
+                <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('signup-confirmpassword', this)" title="Show/Hide Password">
+                  👁️
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Voter Registration Status</label>
+            <select id="signup-voter" class="form-select">
+              <option value="Registered Voter">Registered Voter</option>
+              <option value="Non-Voter">Non-Voter</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            <span>Create Account & Proceed</span> ➔
+          </button>
+
+          <p style="margin-top: 14px; text-align: center; font-size: 13px; color: var(--text-muted);">
+            Already have an account?
+            <a href="javascript:void(0)" onclick="switchAuthMode('signin-resident')" style="color: #065f46; font-weight: 700; text-decoration: underline;">
+              Sign In here
+            </a>
+          </p>
+        </form>
+
+        <!-- Testing Credentials Helper Box -->
+        <div class="demo-hint-box" id="demo-hint-box-container">
+          <div class="demo-hint-header">
+            <span>Demo Testing Accounts:</span>
+            <button type="button" class="hint-quick-btn" onclick="quickFillCredentials()">Quick Fill</button>
+          </div>
+          <div class="demo-hint-grid" id="demo-hint-display">
+            <div><strong>Role:</strong> Resident (Juan Dela Cruz)</div>
+            <div><strong>Email:</strong> resident@email.com | <strong>Password:</strong> password123</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       MODAL: FORGOT PASSWORD
+       ======================================================================== -->
+  <div id="modal-forgot-password" class="modal-backdrop">
+    <div class="modal-content" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>Reset Your Password</h3>
+        <button type="button" class="modal-close-btn" onclick="closeForgotPasswordModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+          Enter your registered email address along with your new desired password. Once updated, you will be able to sign in immediately.
+        </p>
+
+        <form id="forgot-password-form" onsubmit="handleForgotPasswordSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Registered Email Address *</label>
+            <input type="email" id="reset-email" class="form-input" placeholder="e.g., resident@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">New Password (Min. 6 characters) *</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="reset-newpassword" class="form-input" placeholder="Enter new password" minlength="6" required>
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('reset-newpassword', this)" title="Show/Hide Password">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm New Password *</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="reset-confirmpassword" class="form-input" placeholder="Re-type new password" minlength="6" required>
+              <button type="button" class="btn-toggle-password" onclick="togglePasswordVisibility('reset-confirmpassword', this)" title="Show/Hide Password">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="margin-top: 10px;">
+            <span>Update Password & Proceed</span> ➔
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeForgotPasswordModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VIEW 2: RESIDENT DASHBOARD (State: Resident Logged In)
+       ======================================================================== -->
+  <div id="view-resident" class="view-container">
+    <div class="dashboard-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img src="/logo.png" onerror="this.onerror=null; this.src='assets/aistudio/logo_2f79370c.png';" alt="Barangay Lumang Bayan Logo">
+          <div class="sidebar-brand-text">
+            <h2>Lumang Bayan</h2>
+            <p>Citizen Portal</p>
+          </div>
+        </div>
+
+        <div class="sidebar-location-note">
+          Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro
+        </div>
+
+        <div class="sidebar-user">
+          <div class="user-avatar" id="res-user-avatar">J</div>
+          <div class="user-info">
+            <h3 id="res-user-fullname">Juan Dela Cruz</h3>
+            <span class="role-badge">Resident • Sitio Matabang</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button type="button" class="nav-item active" onclick="switchResidentTab('overview', this)">
+            <span class="nav-icon">🏠</span> <span>Dashboard</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchResidentTab('request', this)">
+            <span class="nav-icon">📄</span> <span>Request Certificate</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchResidentTab('status', this)">
+            <span class="nav-icon">🕒</span> <span>Request Status</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchResidentTab('announcements', this)">
+            <span class="nav-icon">📢</span> <span>Announcements</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" class="nav-item nav-logout" onclick="handleLogout()">
+            <span class="nav-icon">🚪</span> <span>Log Out</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="dashboard-main">
+        <header class="main-topbar">
+          <div class="topbar-title">
+            <h2 id="res-header-title">Welcome back, Juan!</h2>
+            <p id="res-header-subtitle">Barangay Lumang Bayan Online Citizen Portal</p>
+          </div>
+          <div class="topbar-actions">
+            <span class="location-badge-topbar">Sitio Matabang, Abra de Ilog</span>
+          </div>
+        </header>
+
+        <div class="main-content-body">
+          <!-- TAB 1: Resident Overview / Dashboard -->
+          <section id="res-tab-overview" class="tab-section active">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon green">📄</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="stat-res-total">0</div>
+                  <div class="stat-label">Total Requests Filed</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon yellow">⏳</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="stat-res-pending">0</div>
+                  <div class="stat-label">Currently Pending</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon emerald">✅</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="stat-res-approved">0</div>
+                  <div class="stat-label">Approved Documents</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Banner -->
+            <div class="panel-card" style="background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); color: #ffffff;">
+              <div class="panel-body" style="padding: 26px 30px;">
+                <h3 style="font-size: 18px; margin-bottom: 8px;">Need a Barangay Clearance, Residency, or Indigency Certificate?</h3>
+                <p style="font-size: 13.5px; color: #d1fae5; max-width: 650px; margin-bottom: 18px;">
+                  Skip the long lines at the Barangay Hall. Submit your request online and track its approval status in real-time. Pick up your physical certified document once approved.
+                </p>
+                <button type="button" class="btn-primary" style="width: auto; display: inline-flex; background: var(--gov-gold); color: #022c22; font-weight: 800;" onclick="navigateToResidentRequest()">
+                  📄 Request a New Certificate Now
+                </button>
+              </div>
+            </div>
+
+            <!-- Recent Requests Preview -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>🕒</span> Recent Request History</h3>
+                <button type="button" class="btn-secondary" onclick="navigateToResidentStatus()">View Full History</button>
+              </div>
+              <div class="panel-body table-responsive">
+                <table class="gov-table">
+                  <thead>
+                    <tr>
+                      <th>Ref. Number</th>
+                      <th>Document Type</th>
+                      <th>Purpose</th>
+                      <th>Date Filed</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="res-overview-requests-tbody">
+                    <!-- Populated dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 2: Request Certificate (Form) -->
+          <section id="res-tab-request" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📄</span> Online Certificate Request Form</h3>
+              </div>
+              <div class="panel-body">
+                <form id="request-certificate-form" onsubmit="handleRequestSubmit(event)">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                      <label class="form-label">Full Name of Resident *</label>
+                      <input type="text" id="req-fullname" class="form-input" required value="Juan Dela Cruz">
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Residential Address *</label>
+                      <input type="text" id="req-address" class="form-input" required value="Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Select Document Type *</label>
+                    <select id="req-doctype" class="form-select" required>
+                      <option value="Barangay Clearance">Barangay Clearance (Employment / Bank / Identification)</option>
+                      <option value="Certificate of Residency">Certificate of Residency (Proof of Domicile)</option>
+                      <option value="Certificate of Indigency">Certificate of Indigency (Medical / Financial / Legal Assistance)</option>
+                      <option value="First Time Jobseeker Certification">First Time Jobseeker Certification (Republic Act 11261 - Free)</option>
+                      <option value="Barangay Business Clearance">Barangay Business Clearance (Commercial Permit Application)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Purpose of Request *</label>
+                    <input type="text" id="req-purpose" class="form-input" placeholder="e.g., Local Employment, Scholarship Application, Bank Requirement" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Additional Details or Notes (Optional)</label>
+                    <textarea id="req-notes" class="form-textarea" rows="3" placeholder="Provide any special instructions or remarks for the barangay secretary."></textarea>
+                  </div>
+
+                  <div style="background: #f0fdf4; border: 1px solid #a7f3d0; padding: 16px; border-radius: var(--radius-sm); margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 700; color: #064e3b; margin-bottom: 6px;">Important Reminders:</div>
+                    <ul style="font-size: 12.5px; color: #065f46; padding-left: 20px;">
+                      <li>Standard processing time is one (1) working day from online submission.</li>
+                      <li>Official issuing location: Barangay Hall, Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro.</li>
+                      <li>Please present at least one valid government identification card upon claiming physical documents.</li>
+                    </ul>
+                  </div>
+
+                  <button type="submit" class="btn-primary" style="width: auto; padding: 12px 32px;">
+                    <span>Submit Request</span> ➔
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 3: Request Status (Table) -->
+          <section id="res-tab-status" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>🕒</span> Request History and Live Status</h3>
+                <button type="button" class="btn-secondary" onclick="renderResidentRequests()">Refresh List</button>
+              </div>
+              <div class="panel-body table-responsive">
+                <table class="gov-table">
+                  <thead>
+                    <tr>
+                      <th>Reference #</th>
+                      <th>Document Type</th>
+                      <th>Purpose</th>
+                      <th>Date Filed</th>
+                      <th>Fee</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="res-requests-table-tbody">
+                    <!-- Populated dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- TAB 4: Announcements -->
+          <section id="res-tab-announcements" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📢</span> Official Barangay Bulletins and Announcements</h3>
+              </div>
+              <div class="panel-body" id="res-announcements-container">
+                <!-- Populated dynamically by JS -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       VIEW 3: ADMIN DASHBOARD (State: Admin Logged In)
+       ======================================================================== -->
+  <div id="view-admin" class="view-container">
+    <div class="dashboard-layout">
+      <!-- Admin Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <img src="/logo.png" onerror="this.onerror=null; this.src='assets/aistudio/logo_2f79370c.png';" alt="Barangay Lumang Bayan Logo">
+          <div class="sidebar-brand-text">
+            <h2>Barangay Office</h2>
+            <p>Admin & Staff Desk</p>
+          </div>
+        </div>
+
+        <div class="sidebar-location-note">
+          Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro
+        </div>
+
+        <div class="sidebar-user">
+          <div class="user-avatar admin-avatar">A</div>
+          <div class="user-info">
+            <h3>Barangay Administrator</h3>
+            <span class="role-badge badge-admin">Authorized Official</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button type="button" class="nav-item active" onclick="switchAdminTab('overview', this)">
+            <span class="nav-icon">📊</span> <span>System Overview</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchAdminTab('manage-requests', this)">
+            <span class="nav-icon">📥</span> <span>Manage Requests</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchAdminTab('residents', this)">
+            <span class="nav-icon">👥</span> <span>Resident Directory</span>
+          </button>
+          <button type="button" class="nav-item" onclick="switchAdminTab('post-announcement', this)">
+            <span class="nav-icon">📢</span> <span>Post Announcement</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button type="button" class="nav-item nav-logout" onclick="handleLogout()">
+            <span class="nav-icon">🚪</span> <span>Log Out</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Admin Main Area -->
+      <main class="dashboard-main">
+        <header class="main-topbar">
+          <div class="topbar-title">
+            <h2 id="admin-topbar-title">Office of the Punong Barangay & Secretariat</h2>
+            <p>Administrative Control Desk • Applications, Resident Records & Public Bulletins</p>
+          </div>
+          <div class="topbar-actions">
+            <span class="location-badge-topbar">Sitio Matabang, Abra de Ilog</span>
+          </div>
+        </header>
+
+        <div class="main-content-body">
+          <!-- ADMIN TAB 1: System Overview -->
+          <section id="admin-tab-overview" class="tab-section active">
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon yellow">📥</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="admin-stat-pending">0</div>
+                  <div class="stat-label">Pending Review</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="admin-stat-approved">0</div>
+                  <div class="stat-label">Approved Applications</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon emerald">👥</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="admin-stat-residents">0</div>
+                  <div class="stat-label">Registered Residents</div>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon blue">📢</div>
+                <div class="stat-info">
+                  <div class="stat-value" id="admin-stat-announcements">0</div>
+                  <div class="stat-label">Active Announcements</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Action Table Preview -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📥</span> Applications Requiring Action</h3>
+                <button type="button" class="btn-secondary" onclick="navigateToAdminRequests()">Manage All</button>
+              </div>
+              <div class="panel-body table-responsive">
+                <table class="gov-table">
+                  <thead>
+                    <tr>
+                      <th>Ref. #</th>
+                      <th>Resident Name</th>
+                      <th>Document</th>
+                      <th>Purpose</th>
+                      <th>Date Filed</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-overview-requests-tbody">
+                    <!-- Populated dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ADMIN TAB 2: Manage Requests -->
+          <section id="admin-tab-manage-requests" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📥</span> Manage All Certificate Applications</h3>
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="btn-secondary" onclick="filterAdminRequests('all')">All</button>
+                  <button type="button" class="btn-secondary" onclick="filterAdminRequests('Pending')">Pending Only</button>
+                  <button type="button" class="btn-secondary" onclick="filterAdminRequests('Approved')">Approved Only</button>
+                </div>
+              </div>
+              <div class="panel-body table-responsive">
+                <table class="gov-table">
+                  <thead>
+                    <tr>
+                      <th>Ref. Number</th>
+                      <th>Resident</th>
+                      <th>Document Type</th>
+                      <th>Purpose</th>
+                      <th>Date Filed</th>
+                      <th>Status</th>
+                      <th>Approval Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-requests-table-tbody">
+                    <!-- Populated dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ADMIN TAB 3: Resident Directory -->
+          <section id="admin-tab-residents" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>👥</span> Official Masterlist of Registered Residents</h3>
+                <button type="button" class="btn-primary" style="width: auto; padding: 6px 14px; font-size: 13px;" onclick="openAddResidentModal()">
+                  + Register New Resident
+                </button>
+              </div>
+              <div class="panel-body table-responsive">
+                <table class="gov-table">
+                  <thead>
+                    <tr>
+                      <th>Resident ID</th>
+                      <th>Full Legal Name</th>
+                      <th>Sitio / Address</th>
+                      <th>Voter Status</th>
+                      <th>Registration Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-residents-table-tbody">
+                    <!-- Populated dynamically by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ADMIN TAB 4: Post Announcement -->
+          <section id="admin-tab-post-announcement" class="tab-section">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📢</span> Publish New Community Advisory or Announcement</h3>
+              </div>
+              <div class="panel-body">
+                <form id="post-announcement-form" onsubmit="handlePostAnnouncement(event)">
+                  <div class="form-group">
+                    <label class="form-label">Announcement Title *</label>
+                    <input type="text" id="ann-title" class="form-input" placeholder="e.g., Schedule of Community Health Consultation" required>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                      <label class="form-label">Category *</label>
+                      <select id="ann-category" class="form-select" required>
+                        <option value="Health Mission">Health & Medical Mission</option>
+                        <option value="Financial Assistance">Financial Aid / Social Welfare</option>
+                        <option value="Community Service">Community Service & Clean-Up</option>
+                        <option value="Public Advisory">Public Advisory & Notice</option>
+                        <option value="Barangay Assembly">Barangay General Assembly</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Issuing Office / Author *</label>
+                      <input type="text" id="ann-author" class="form-input" value="Office of the Punong Barangay" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Announcement Content & Details *</label>
+                    <textarea id="ann-content" class="form-textarea" rows="5" placeholder="Enter full details including date, time, venue, covered residents, and required documents." required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn-primary" style="width: auto; padding: 12px 30px;">
+                    <span>Publish Announcement</span> ➔
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Existing announcements for admin -->
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3><span>📢</span> Currently Published Announcements</h3>
+              </div>
+              <div class="panel-body" id="admin-announcements-list">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: CERTIFICATE PREVIEW / PRINT
+       ======================================================================== -->
+  <div id="modal-certificate" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="cert-modal-header-title">Official Document Preview</h3>
+        <button type="button" class="modal-close-btn" onclick="closeCertModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="printable-doc" id="printable-certificate">
+          <div class="doc-header">
+            <img src="/logo.png" onerror="this.onerror=null; this.src='assets/aistudio/logo_2f79370c.png';" alt="Barangay Logo" class="doc-header-logo">
+            <p>Republic of the Philippines<br>Province of Occidental Mindoro<br>Municipality of Abra de Ilog</p>
+            <h2>BARANGAY LUMANG BAYAN</h2>
+            <p style="font-weight: 700; margin-top: 4px; color: var(--gov-green-dark);">OFFICE OF THE PUNONG BARANGAY</p>
+            <p style="font-size: 11px; color: #065f46; margin-top: 2px;">Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro</p>
+          </div>
+
+          <div class="doc-title" id="cert-print-title">BARANGAY CLEARANCE</div>
+
+          <div class="doc-body-text" id="cert-print-body">
+            This is to certify that <strong id="cert-print-name">Juan Dela Cruz</strong>, of legal age, Filipino citizen, is a bonafide resident of <strong id="cert-print-sitio">Sitio Matabang</strong>, Barangay Lumang Bayan, Municipality of Abra de Ilog, Province of Occidental Mindoro.<br><br>
+            It is further certified that according to the official records of this barangay, the aforementioned individual has maintained good moral character and has no derogatory or criminal record filed with the Lupong Tagapamayapa.<br><br>
+            This certification is issued upon the request of the interested party for the purpose of: <strong id="cert-print-purpose">Local Employment Application</strong>.
+          </div>
+
+          <div style="font-size: 12px; color: #64748b; margin-bottom: 24px;">
+            Issued on this <span id="cert-print-date">3rd day of November, 2026</span> at the Barangay Hall, Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro.
+          </div>
+
+          <div class="doc-signatures">
+            <div class="sig-box">
+              <div class="sig-line">BARANGAY SECRETARY</div>
+              <div class="sig-title">Records Verified & Attested</div>
+            </div>
+            <div class="sig-box">
+              <div class="sig-line">HON. PUNONG BARANGAY</div>
+              <div class="sig-title">Barangay Captain / Head of Office</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeCertModal()">Close</button>
+        <button type="button" class="btn-primary" style="width: auto;" onclick="window.print()">🖨️ Print Certificate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: ADD RESIDENT (Admin)
+       ======================================================================== -->
+  <div id="modal-add-resident" class="modal-backdrop">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3>Register New Resident</h3>
+        <button type="button" class="modal-close-btn" onclick="closeAddResidentModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="add-resident-form" onsubmit="handleAddResidentSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Full Legal Name *</label>
+            <input type="text" id="new-res-name" class="form-input" placeholder="e.g., Roberto M. Gonzales" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sitio / Address *</label>
+            <input type="text" id="new-res-address" class="form-input" value="Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Voter Status *</label>
+            <select id="new-res-voter" class="form-select">
+              <option value="Registered Voter">Registered Voter</option>
+              <option value="Non-Voter">Non-Voter</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 10px;">Save to Resident Masterlist</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       PURE JAVASCRIPT APPLICATION LOGIC (100% SELF-CONTAINED & ENGLISH ONLY)
+       ======================================================================== -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. DATA STATE & STORAGE CONSTANTS
+    // -------------------------------------------------------------------------
+    const STORAGE_KEY_ACCOUNTS = 'lumangbayan_portal_accounts_v3';
+    const STORAGE_KEY_REQUESTS = 'lumangbayan_portal_requests_v3';
+    const STORAGE_KEY_RESIDENTS = 'lumangbayan_portal_residents_v3';
+    const STORAGE_KEY_ANNOUNCEMENTS = 'lumangbayan_portal_announcements_v3';
+    const STORAGE_KEY_SESSION = 'lumangbayan_portal_session_v3';
+
+    const OFFICIAL_ADDRESS = 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro';
+
+    // Default User Accounts (for persistent authentication)
+    const DEFAULT_ACCOUNTS = [
+      {
+        email: 'resident@email.com',
+        password: 'password123',
+        fullName: 'Juan Dela Cruz',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro',
+        role: 'resident',
+        voterStatus: 'Registered Voter'
+      },
+      {
+        email: 'admin',
+        password: 'admin123',
+        fullName: 'Barangay Administrator',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog, Occidental Mindoro',
+        role: 'admin',
+        voterStatus: 'Registered Voter'
+      }
+    ];
+
+    // Default Mock Residents
+    const DEFAULT_RESIDENTS = [
+      {
+        id: 'RES-001',
+        fullName: 'Juan Dela Cruz',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog',
+        voterStatus: 'Registered Voter',
+        registeredDate: '2024-03-12'
+      },
+      {
+        id: 'RES-002',
+        fullName: 'Maria Santos',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog',
+        voterStatus: 'Registered Voter',
+        registeredDate: '2024-05-18'
+      },
+      {
+        id: 'RES-003',
+        fullName: 'Antonio Reyes',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog',
+        voterStatus: 'Registered Voter',
+        registeredDate: '2024-08-20'
+      },
+      {
+        id: 'RES-004',
+        fullName: 'Elena Villanueva',
+        address: 'Sitio Matabang, Barangay Lumang Bayan, Abra de Ilog',
+        voterStatus: 'Registered Voter',
+        registeredDate: '2025-01-10'
+      }
+    ];
+
+    // Default Mock Requests
+    const DEFAULT_REQUESTS = [
+      {
+        id: 'req-1',
+        referenceNumber: 'LB-2026-4821',
+        residentName: 'Juan Dela Cruz',
+        documentType: 'Barangay Clearance',
+        purpose: 'Local Employment Application',
+        date: '2026-10-28',
+        address: 'Sitio Matabang, Abra de Ilog',
+        fee: 'Free of Charge',
+        status: 'Approved'
+      },
+      {
+        id: 'req-2',
+        referenceNumber: 'LB-2026-5190',
+        residentName: 'Maria Santos',
+        documentType: 'Certificate of Indigency',
+        purpose: 'Medical and Hospital Assistance',
+        date: '2026-10-30',
+        address: 'Sitio Matabang, Abra de Ilog',
+        fee: 'Free of Charge',
+        status: 'Pending'
+      },
+      {
+        id: 'req-3',
+        referenceNumber: 'LB-2026-6302',
+        residentName: 'Antonio Reyes',
+        documentType: 'Certificate of Residency',
+        purpose: 'Bank Account Opening',
+        date: '2026-11-01',
+        address: 'Sitio Matabang, Abra de Ilog',
+        fee: 'Free of Charge',
+        status: 'Approved'
+      },
+      {
+        id: 'req-4',
+        referenceNumber: 'LB-2026-7714',
+        residentName: 'Elena Villanueva',
+        documentType: 'Barangay Business Clearance',
+        purpose: 'Store Commercial Permit Renewal',
+        date: '2026-11-02',
+        address: 'Sitio Matabang, Abra de Ilog',
+        fee: '₱150.00',
+        status: 'Rejected'
+      }
+    ];
+
+    // Default Announcements (English Only)
+    const DEFAULT_ANNOUNCEMENTS = [
+      {
+        id: 'ann-1',
+        title: 'Community Medical and Dental Outreach Mission',
+        category: 'Health Mission',
+        date: 'Nov 05, 2026',
+        author: 'Office of the Barangay Captain & Health Committee',
+        content: 'All residents of Sitio Matabang and surrounding areas of Barangay Lumang Bayan, Abra de Ilog are invited to the Community Health Outreach this coming Saturday, from 8:00 AM to 3:00 PM at the Barangay Covered Court. Free medical consultations, dental tooth extractions, vitamin distributions, and basic health screenings will be conducted.'
+      },
+      {
+        id: 'ann-2',
+        title: 'Schedule for Social Pension Payout for Senior Citizens',
+        category: 'Financial Assistance',
+        date: 'Nov 08, 2026',
+        author: 'Office of the Punong Barangay',
+        content: 'The official payout for the 4th Quarter Social Pension will take place at the Barangay Multi-purpose Hall starting at 9:00 AM. Beneficiaries must present their valid Senior Citizen OSCA ID along with two photocopies. Authorized representatives must carry a signed authorization letter.'
+      },
+      {
+        id: 'ann-3',
+        title: 'Barangay Clean-Up & Environmental Sanitation Drive',
+        category: 'Community Service',
+        date: 'Nov 12, 2026',
+        author: 'Barangay Council & Sangguniang Kabataan',
+        content: 'Residents across all sectors of Sitio Matabang are requested to participate in the synchronized community clean-up drive. We will clean drainage waterways and clear stagnant water containers to eliminate mosquito breeding grounds and protect our families from Dengue.'
+      }
+    ];
+
+    // State Variables
+    let currentAuthMode = 'signin-resident'; // 'signin-resident', 'signup-resident', 'signin-admin'
+    let currentUserSession = null;
+    let accountsData = [];
+    let requestsData = [];
+    let residentsData = [];
+    let announcementsData = [];
+    let currentAdminFilter = 'all';
+
+    // -------------------------------------------------------------------------
+    // 2. LIFECYCLE & STORAGE HELPERS
+    // -------------------------------------------------------------------------
+    function initData() {
+      try {
+        const storedAcc = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+        accountsData = storedAcc ? JSON.parse(storedAcc) : [...DEFAULT_ACCOUNTS];
+      } catch (e) {
+        accountsData = [...DEFAULT_ACCOUNTS];
+      }
+
+      try {
+        const storedReq = localStorage.getItem(STORAGE_KEY_REQUESTS);
+        requestsData = storedReq ? JSON.parse(storedReq) : [...DEFAULT_REQUESTS];
+      } catch (e) {
+        requestsData = [...DEFAULT_REQUESTS];
+      }
+
+      try {
+        const storedRes = localStorage.getItem(STORAGE_KEY_RESIDENTS);
+        residentsData = storedRes ? JSON.parse(storedRes) : [...DEFAULT_RESIDENTS];
+      } catch (e) {
+        residentsData = [...DEFAULT_RESIDENTS];
+      }
+
+      try {
+        const storedAnn = localStorage.getItem(STORAGE_KEY_ANNOUNCEMENTS);
+        announcementsData = storedAnn ? JSON.parse(storedAnn) : [...DEFAULT_ANNOUNCEMENTS];
+      } catch (e) {
+        announcementsData = [...DEFAULT_ANNOUNCEMENTS];
+      }
+
+      // Check existing session
+      try {
+        const storedSession = localStorage.getItem(STORAGE_KEY_SESSION);
+        if (storedSession) {
+          currentUserSession = JSON.parse(storedSession);
+        }
+      } catch (e) {
+        currentUserSession = null;
+      }
+
+      if (currentUserSession && currentUserSession.role === 'resident') {
+        showView('view-resident');
+        renderResidentDashboard();
+      } else if (currentUserSession && currentUserSession.role === 'admin') {
+        showView('view-admin');
+        renderAdminDashboard();
+      } else {
+        showView('view-login');
+        switchAuthMode('signin-resident');
+      }
+    }
+
+    function saveAccounts() {
+      try {
+        localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(accountsData));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function saveRequests() {
+      try {
+        localStorage.setItem(STORAGE_KEY_REQUESTS, JSON.stringify(requestsData));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function saveResidents() {
+      try {
+        localStorage.setItem(STORAGE_KEY_RESIDENTS, JSON.stringify(residentsData));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function saveAnnouncements() {
+      try {
+        localStorage.setItem(STORAGE_KEY_ANNOUNCEMENTS, JSON.stringify(announcementsData));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. VIEW TRANSITIONS
+    // -------------------------------------------------------------------------
+    function showView(viewId) {
+      document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById(viewId);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. PASSWORD VISIBILITY TOGGLE (EYE ICON)
+    // -------------------------------------------------------------------------
+    function togglePasswordVisibility(inputId, btnEl) {
+      const inputEl = document.getElementById(inputId);
+      if (!inputEl) return;
+      if (inputEl.type === 'password') {
+        inputEl.type = 'text';
+        btnEl.textContent = '🙈';
+        btnEl.title = 'Hide Password';
+      } else {
+        inputEl.type = 'password';
+        btnEl.textContent = '👁️';
+        btnEl.title = 'Show Password';
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 5. AUTHENTICATION TABS (SIGN IN, SIGN UP, ADMIN)
+    // -------------------------------------------------------------------------
+    function switchAuthMode(mode) {
+      currentAuthMode = mode;
+      const tabResidentSignIn = document.getElementById('tab-resident-signin-btn');
+      const tabResidentSignUp = document.getElementById('tab-resident-signup-btn');
+      const tabAdminSignIn = document.getElementById('tab-admin-signin-btn');
+
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const errorAlert = document.getElementById('login-error-alert');
+      const successAlert = document.getElementById('login-success-alert');
+      const demoHintBox = document.getElementById('demo-hint-box-container');
+      const portalSubText = document.getElementById('portal-sub-text');
+      const labelIdentifier = document.getElementById('label-identifier');
+      const inputIdentifier = document.getElementById('input-identifier');
+      const inputPassword = document.getElementById('input-password');
+      const toggleLink = document.getElementById('toggle-to-signup-link');
+
+      errorAlert.style.display = 'none';
+      successAlert.style.display = 'none';
+
+      // Reset tab button states
+      tabResidentSignIn.classList.remove('active');
+      tabResidentSignUp.classList.remove('active');
+      tabAdminSignIn.classList.remove('active');
+
+      if (mode === 'signin-resident') {
+        tabResidentSignIn.classList.add('active');
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        demoHintBox.style.display = 'block';
+        toggleLink.style.display = 'block';
+
+        labelIdentifier.textContent = 'Resident Email Address';
+        inputIdentifier.value = 'resident@email.com';
+        inputPassword.value = 'password123';
+        portalSubText.textContent = 'Citizen Online Portal • Request Certificates & Clearances';
+
+        document.getElementById('demo-hint-display').innerHTML = `
+          <div><strong>Role:</strong> Resident (Juan Dela Cruz)</div>
+          <div><strong>Email:</strong> resident@email.com | <strong>Password:</strong> password123</div>
+        `;
+      } else if (mode === 'signup-resident') {
+        tabResidentSignUp.classList.add('active');
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        demoHintBox.style.display = 'none';
+        portalSubText.textContent = 'Register New Citizen Account • Sitio Matabang, Abra de Ilog';
+      } else if (mode === 'signin-admin') {
+        tabAdminSignIn.classList.add('active');
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        demoHintBox.style.display = 'block';
+        toggleLink.style.display = 'none';
+
+        labelIdentifier.textContent = 'Administrator Username or Email';
+        inputIdentifier.value = 'admin';
+        inputPassword.value = 'admin123';
+        portalSubText.textContent = 'Barangay Office Desk • Administrative Approvals';
+
+        document.getElementById('demo-hint-display').innerHTML = `
+          <div><strong>Role:</strong> Barangay Administrator</div>
+          <div><strong>Username:</strong> admin | <strong>Password:</strong> admin123</div>
+        `;
+      }
+    }
+
+    function quickFillCredentials() {
+      const inputIdentifier = document.getElementById('input-identifier');
+      const inputPassword = document.getElementById('input-password');
+      if (currentAuthMode === 'signin-resident') {
+        inputIdentifier.value = 'resident@email.com';
+        inputPassword.value = 'password123';
+      } else if (currentAuthMode === 'signin-admin') {
+        inputIdentifier.value = 'admin';
+        inputPassword.value = 'admin123';
+      }
+    }
+
+    // Handle Login Submit
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const identifier = document.getElementById('input-identifier').value.trim().toLowerCase();
+      const password = document.getElementById('input-password').value.trim();
+      const errorAlert = document.getElementById('login-error-alert');
+      const successAlert = document.getElementById('login-success-alert');
+
+      errorAlert.style.display = 'none';
+      successAlert.style.display = 'none';
+
+      if (currentAuthMode === 'signin-resident') {
+        // Look up registered accounts in accountsData
+        const matchedAccount = accountsData.find(acc => acc.email.toLowerCase() === identifier && acc.role === 'resident');
+
+        if (matchedAccount) {
+          if (matchedAccount.password === password) {
+            currentUserSession = {
+              role: 'resident',
+              fullName: matchedAccount.fullName,
+              address: matchedAccount.address || OFFICIAL_ADDRESS,
+              email: matchedAccount.email
+            };
+            localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(currentUserSession));
+            showView('view-resident');
+            renderResidentDashboard();
+            return;
+          } else {
+            errorAlert.textContent = 'Incorrect password. Please verify your password or use "Forgot Password".';
+            errorAlert.style.display = 'block';
+            return;
+          }
+        }
+
+        // Allow demo fallback if identifier contains resident or juan
+        if (identifier.includes('resident') || identifier.includes('juan')) {
+          currentUserSession = {
+            role: 'resident',
+            fullName: 'Juan Dela Cruz',
+            address: OFFICIAL_ADDRESS,
+            email: identifier
+          };
+          localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(currentUserSession));
+          showView('view-resident');
+          renderResidentDashboard();
+        } else {
+          errorAlert.textContent = 'Account not found with this email. Click "Sign Up (Create Account)" to register.';
+          errorAlert.style.display = 'block';
+        }
+      } else if (currentAuthMode === 'signin-admin') {
+        if ((identifier === 'admin' || identifier === 'admin@lumangbayan.gov.ph') && password === 'admin123') {
+          currentUserSession = {
+            role: 'admin',
+            fullName: 'Barangay Administrator',
+            roleName: 'Barangay Official'
+          };
+          localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(currentUserSession));
+          showView('view-admin');
+          renderAdminDashboard();
+        } else {
+          errorAlert.textContent = 'Invalid administrator credentials. Please use: admin / admin123.';
+          errorAlert.style.display = 'block';
+        }
+      }
+    }
+
+    // Handle Sign Up Submit
+    function handleSignupSubmit(event) {
+      event.preventDefault();
+      const fullName = document.getElementById('signup-fullname').value.trim();
+      const email = document.getElementById('signup-email').value.trim().toLowerCase();
+      const address = document.getElementById('signup-address').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirmpassword').value;
+      const voter = document.getElementById('signup-voter').value;
+
+      const errorAlert = document.getElementById('login-error-alert');
+      const successAlert = document.getElementById('login-success-alert');
+
+      errorAlert.style.display = 'none';
+      successAlert.style.display = 'none';
+
+      if (!fullName || !email || !password) {
+        errorAlert.textContent = 'Please fill out all required fields.';
+        errorAlert.style.display = 'block';
+        return;
+      }
+
+      if (password.length < 6) {
+        errorAlert.textContent = 'Password must be at least 6 characters in length.';
+        errorAlert.style.display = 'block';
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorAlert.textContent = 'Passwords do not match. Please re-type your password.';
+        errorAlert.style.display = 'block';
+        return;
+      }
+
+      // Check if email already registered
+      const existingAccount = accountsData.find(acc => acc.email.toLowerCase() === email);
+      if (existingAccount) {
+        errorAlert.textContent = 'An account with this email address already exists. Please Sign In instead.';
+        errorAlert.style.display = 'block';
+        return;
+      }
+
+      // Create new account object
+      const newAccount = {
+        email: email,
+        password: password,
+        fullName: fullName,
+        address: address || OFFICIAL_ADDRESS,
+        role: 'resident',
+        voterStatus: voter
+      };
+
+      accountsData.push(newAccount);
+      saveAccounts();
+
+      // Also add to resident directory masterlist
+      const newResidentRecord = {
+        id: 'RES-00' + (residentsData.length + 1),
+        fullName: fullName,
+        address: address || OFFICIAL_ADDRESS,
+        voterStatus: voter,
+        registeredDate: new Date().toISOString().split('T')[0]
+      };
+      residentsData.unshift(newResidentRecord);
+      saveResidents();
+
+      // Automatically sign in as the newly registered resident
+      currentUserSession = {
+        role: 'resident',
+        fullName: fullName,
+        address: address || OFFICIAL_ADDRESS,
+        email: email
+      };
+      localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(currentUserSession));
+
+      alert(`Account Created Successfully!\n\nWelcome to Barangay Lumang Bayan Portal, ${fullName}!\nYour account has been registered with Sitio Matabang, Abra de Ilog.`);
+
+      // Reset form
+      document.getElementById('signup-form').reset();
+
+      // Show resident dashboard
+      showView('view-resident');
+      renderResidentDashboard();
+    }
+
+    // -------------------------------------------------------------------------
+    // 6. FORGOT PASSWORD WORKFLOW
+    // -------------------------------------------------------------------------
+    function openForgotPasswordModal() {
+      const emailField = document.getElementById('input-identifier');
+      if (emailField && emailField.value.includes('@')) {
+        document.getElementById('reset-email').value = emailField.value;
+      }
+      document.getElementById('modal-forgot-password').classList.add('active');
+    }
+
+    function closeForgotPasswordModal() {
+      document.getElementById('modal-forgot-password').classList.remove('active');
+      document.getElementById('forgot-password-form').reset();
+    }
+
+    function handleForgotPasswordSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('reset-email').value.trim().toLowerCase();
+      const newPass = document.getElementById('reset-newpassword').value;
+      const confirmPass = document.getElementById('reset-confirmpassword').value;
+
+      if (newPass.length < 6) {
+        alert('New password must be at least 6 characters in length.');
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        alert('New passwords do not match. Please re-enter.');
+        return;
+      }
+
+      // Search account
+      const accIndex = accountsData.findIndex(a => a.email.toLowerCase() === email);
+
+      if (accIndex !== -1) {
+        accountsData[accIndex].password = newPass;
+        saveAccounts();
+        alert(`Password Updated Successfully!\n\nYou can now sign in using your updated password.`);
+        closeForgotPasswordModal();
+
+        // Switch to sign in view and prefill
+        switchAuthMode('signin-resident');
+        document.getElementById('input-identifier').value = email;
+        document.getElementById('input-password').value = newPass;
+      } else {
+        // If not found in custom accounts, check if it's the default demo email
+        if (email === 'resident@email.com') {
+          const defaultAcc = accountsData.find(a => a.email === 'resident@email.com');
+          if (defaultAcc) {
+            defaultAcc.password = newPass;
+            saveAccounts();
+          }
+          alert(`Password Updated Successfully for resident@email.com!\nYou may now sign in.`);
+          closeForgotPasswordModal();
+          switchAuthMode('signin-resident');
+          document.getElementById('input-identifier').value = email;
+          document.getElementById('input-password').value = newPass;
+        } else {
+          alert('No registered resident account found with this email. Please check your email address or click "Sign Up" to create an account.');
+        }
+      }
+    }
+
+    function handleLogout() {
+      currentUserSession = null;
+      try {
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+      } catch (e) {}
+      showView('view-login');
+      switchAuthMode('signin-resident');
+    }
+
+    // -------------------------------------------------------------------------
+    // 7. RESIDENT DASHBOARD LOGIC (ENGLISH ONLY)
+    // -------------------------------------------------------------------------
+    function switchResidentTab(tabKey, btnElement) {
+      document.querySelectorAll('#view-resident .sidebar-nav .nav-item').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+
+      document.querySelectorAll('#view-resident .tab-section').forEach(sec => sec.classList.remove('active'));
+      const activeSection = document.getElementById('res-tab-' + tabKey);
+      if (activeSection) {
+        activeSection.classList.add('active');
+      }
+
+      const headerTitle = document.getElementById('res-header-title');
+      const headerSubtitle = document.getElementById('res-header-subtitle');
+      if (tabKey === 'overview') {
+        headerTitle.textContent = 'Welcome back, ' + (currentUserSession?.fullName || 'Resident') + '!';
+        headerSubtitle.textContent = 'Overview of your certificate requests and community notices';
+        renderResidentOverview();
+      } else if (tabKey === 'request') {
+        headerTitle.textContent = 'Request Official Certificate';
+        headerSubtitle.textContent = 'Fill out the form below to apply for official barangay documents';
+        // Pre-fill current resident info
+        if (currentUserSession) {
+          document.getElementById('req-fullname').value = currentUserSession.fullName;
+          document.getElementById('req-address').value = currentUserSession.address || OFFICIAL_ADDRESS;
+        }
+      } else if (tabKey === 'status') {
+        headerTitle.textContent = 'Certificate Request Status';
+        headerSubtitle.textContent = 'Track the progress, approval, and issuance of your documents';
+        renderResidentRequests();
+      } else if (tabKey === 'announcements') {
+        headerTitle.textContent = 'Official Announcements & Advisories';
+        headerSubtitle.textContent = 'Public bulletins issued by Barangay Lumang Bayan, Abra de Ilog';
+        renderAnnouncementsFeed('res-announcements-container');
+      }
+    }
+
+    function navigateToResidentRequest() {
+      const btn = document.querySelector('#view-resident .sidebar-nav button:nth-child(2)');
+      switchResidentTab('request', btn);
+    }
+
+    function navigateToResidentStatus() {
+      const btn = document.querySelector('#view-resident .sidebar-nav button:nth-child(3)');
+      switchResidentTab('status', btn);
+    }
+
+    function renderResidentDashboard() {
+      if (currentUserSession) {
+        document.getElementById('res-user-fullname').textContent = currentUserSession.fullName;
+        document.getElementById('res-user-avatar').textContent = (currentUserSession.fullName || 'R').charAt(0).toUpperCase();
+        document.getElementById('req-fullname').value = currentUserSession.fullName;
+        document.getElementById('req-address').value = currentUserSession.address || OFFICIAL_ADDRESS;
+      }
+      renderResidentOverview();
+      renderResidentRequests();
+      renderAnnouncementsFeed('res-announcements-container');
+    }
+
+    function renderResidentOverview() {
+      const residentName = currentUserSession?.fullName || 'Juan Dela Cruz';
+      const myRequests = requestsData.filter(r => r.residentName.toLowerCase() === residentName.toLowerCase());
+
+      const totalCount = myRequests.length;
+      const pendingCount = myRequests.filter(r => r.status === 'Pending').length;
+      const approvedCount = myRequests.filter(r => r.status === 'Approved').length;
+
+      document.getElementById('stat-res-total').textContent = totalCount;
+      document.getElementById('stat-res-pending').textContent = pendingCount;
+      document.getElementById('stat-res-approved').textContent = approvedCount;
+
+      const tbody = document.getElementById('res-overview-requests-tbody');
+      tbody.innerHTML = '';
+
+      if (myRequests.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No requests submitted yet. Click "Request Certificate" to get started.</td></tr>`;
+        return;
+      }
+
+      myRequests.slice(0, 3).forEach(req => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="ref-code">${req.referenceNumber}</span></td>
+          <td><strong>${req.documentType}</strong></td>
+          <td>${req.purpose}</td>
+          <td>${req.date}</td>
+          <td><span class="status-badge ${req.status.toLowerCase()}">${req.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderResidentRequests() {
+      const residentName = currentUserSession?.fullName || 'Juan Dela Cruz';
+      const myRequests = requestsData.filter(r => r.residentName.toLowerCase() === residentName.toLowerCase());
+      const tbody = document.getElementById('res-requests-table-tbody');
+      tbody.innerHTML = '';
+
+      if (myRequests.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">No requests found. Submit a new document request above.</td></tr>`;
+        return;
+      }
+
+      myRequests.forEach(req => {
+        const tr = document.createElement('tr');
+        const viewCertBtn = req.status === 'Approved'
+          ? `<button type="button" class="btn-table-action btn-view-cert" onclick="openCertModal('${req.id}')">👁️ View Certificate</button>`
+          : `<span style="font-size:12px; color:#94a3b8;">Awaiting Approval</span>`;
+
+        tr.innerHTML = `
+          <td><span class="ref-code">${req.referenceNumber}</span></td>
+          <td><strong>${req.documentType}</strong></td>
+          <td>${req.purpose}</td>
+          <td>${req.date}</td>
+          <td>${req.fee || 'Free'}</td>
+          <td><span class="status-badge ${req.status.toLowerCase()}">${req.status}</span></td>
+          <td>${viewCertBtn}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function handleRequestSubmit(event) {
+      event.preventDefault();
+      const fullName = document.getElementById('req-fullname').value.trim();
+      const address = document.getElementById('req-address').value.trim();
+      const docType = document.getElementById('req-doctype').value;
+      const purpose = document.getElementById('req-purpose').value.trim();
+      const notes = document.getElementById('req-notes').value.trim();
+
+      if (!fullName || !purpose) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      const randNum = Math.floor(1000 + Math.random() * 9000);
+      const refCode = `LB-2026-${randNum}`;
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      const newRequest = {
+        id: 'req-' + Date.now(),
+        referenceNumber: refCode,
+        residentName: fullName,
+        documentType: docType,
+        purpose: purpose,
+        date: todayStr,
+        address: address || OFFICIAL_ADDRESS,
+        fee: docType.includes('Business') ? '₱150.00' : 'Free of Charge',
+        status: 'Pending',
+        notes: notes
+      };
+
+      requestsData.unshift(newRequest);
+      saveRequests();
+
+      alert(`Request Submitted Successfully!\n\nReference Number: ${refCode}\nDocument: ${docType}\nResident: ${fullName}\nAddress: ${newRequest.address}\n\nYour application has been logged with "Pending" status.`);
+
+      document.getElementById('req-purpose').value = '';
+      document.getElementById('req-notes').value = '';
+
+      const statusNavBtn = document.querySelector('#view-resident .sidebar-nav button:nth-child(3)');
+      switchResidentTab('status', statusNavBtn);
+    }
+
+    // -------------------------------------------------------------------------
+    // 8. ADMIN DASHBOARD LOGIC (ENGLISH ONLY)
+    // -------------------------------------------------------------------------
+    function switchAdminTab(tabKey, btnElement) {
+      document.querySelectorAll('#view-admin .sidebar-nav .nav-item').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+
+      document.querySelectorAll('#view-admin .tab-section').forEach(sec => sec.classList.remove('active'));
+      const activeSection = document.getElementById('admin-tab-' + tabKey);
+      if (activeSection) {
+        activeSection.classList.add('active');
+      }
+
+      const topbarTitle = document.getElementById('admin-topbar-title');
+      if (tabKey === 'overview') {
+        topbarTitle.textContent = 'System Overview • Barangay Lumang Bayan Portal';
+        renderAdminOverview();
+      } else if (tabKey === 'manage-requests') {
+        topbarTitle.textContent = 'Manage Certificate Applications';
+        renderAdminRequestsTable();
+      } else if (tabKey === 'residents') {
+        topbarTitle.textContent = 'Official Resident Masterlist';
+        renderAdminResidentsTable();
+      } else if (tabKey === 'post-announcement') {
+        topbarTitle.textContent = 'Publish Public Bulletin & Announcement';
+        renderAdminAnnouncementsList();
+      }
+    }
+
+    function navigateToAdminRequests() {
+      const btn = document.querySelector('#view-admin .sidebar-nav button:nth-child(2)');
+      switchAdminTab('manage-requests', btn);
+    }
+
+    function renderAdminDashboard() {
+      renderAdminOverview();
+      renderAdminRequestsTable();
+      renderAdminResidentsTable();
+      renderAdminAnnouncementsList();
+    }
+
+    function renderAdminOverview() {
+      const pendingCount = requestsData.filter(r => r.status === 'Pending').length;
+      const approvedCount = requestsData.filter(r => r.status === 'Approved').length;
+      const residentsCount = residentsData.length;
+      const annCount = announcementsData.length;
+
+      document.getElementById('admin-stat-pending').textContent = pendingCount;
+      document.getElementById('admin-stat-approved').textContent = approvedCount;
+      document.getElementById('admin-stat-residents').textContent = residentsCount;
+      document.getElementById('admin-stat-announcements').textContent = annCount;
+
+      const tbody = document.getElementById('admin-overview-requests-tbody');
+      tbody.innerHTML = '';
+
+      if (requestsData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px; color:#94a3b8;">No applications currently on file.</td></tr>`;
+        return;
+      }
+
+      requestsData.slice(0, 4).forEach(req => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="ref-code">${req.referenceNumber}</span></td>
+          <td><strong>${req.residentName}</strong><br><span style="font-size:11px; color:#64748b;">${req.address || 'Sitio Matabang, Abra de Ilog'}</span></td>
+          <td>${req.documentType}</td>
+          <td>${req.purpose}</td>
+          <td>${req.date}</td>
+          <td><span class="status-badge ${req.status.toLowerCase()}">${req.status}</span></td>
+          <td>
+            <div class="btn-action-group">
+              <button type="button" class="btn-table-action btn-approve" onclick="updateRequestStatus('${req.id}', 'Approved')">✓ Approve</button>
+              <button type="button" class="btn-table-action btn-reject" onclick="updateRequestStatus('${req.id}', 'Rejected')">✕ Reject</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterAdminRequests(statusFilter) {
+      currentAdminFilter = statusFilter;
+      renderAdminRequestsTable();
+    }
+
+    function renderAdminRequestsTable() {
+      const tbody = document.getElementById('admin-requests-table-tbody');
+      tbody.innerHTML = '';
+
+      let list = requestsData;
+      if (currentAdminFilter !== 'all') {
+        list = requestsData.filter(r => r.status === currentAdminFilter);
+      }
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">No requests found matching filter (${currentAdminFilter}).</td></tr>`;
+        return;
+      }
+
+      list.forEach(req => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="ref-code">${req.referenceNumber}</span></td>
+          <td><strong>${req.residentName}</strong><br><span style="font-size:11px; color:#64748b;">${req.address || 'Sitio Matabang, Abra de Ilog'}</span></td>
+          <td><strong>${req.documentType}</strong></td>
+          <td>${req.purpose}</td>
+          <td>${req.date}</td>
+          <td><span class="status-badge ${req.status.toLowerCase()}">${req.status}</span></td>
+          <td>
+            <div class="btn-action-group">
+              <button type="button" class="btn-table-action btn-approve" onclick="updateRequestStatus('${req.id}', 'Approved')">✓ Approve</button>
+              <button type="button" class="btn-table-action btn-reject" onclick="updateRequestStatus('${req.id}', 'Rejected')">✕ Reject</button>
+              ${req.status === 'Approved' ? `<button type="button" class="btn-table-action btn-view-cert" onclick="openCertModal('${req.id}')">Print</button>` : ''}
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateRequestStatus(requestId, newStatus) {
+      const index = requestsData.findIndex(r => r.id === requestId);
+      if (index !== -1) {
+        requestsData[index].status = newStatus;
+        saveRequests();
+        renderAdminOverview();
+        renderAdminRequestsTable();
+      }
+    }
+
+    function renderAdminResidentsTable() {
+      const tbody = document.getElementById('admin-residents-table-tbody');
+      tbody.innerHTML = '';
+
+      residentsData.forEach(res => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="ref-code">${res.id}</span></td>
+          <td><strong>${res.fullName}</strong></td>
+          <td>${res.address}</td>
+          <td><span style="display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; background:#d1fae5; color:#065f46;">${res.voterStatus}</span></td>
+          <td>${res.registeredDate}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openAddResidentModal() {
+      document.getElementById('modal-add-resident').classList.add('active');
+    }
+
+    function closeAddResidentModal() {
+      document.getElementById('modal-add-resident').classList.remove('active');
+    }
+
+    function handleAddResidentSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('new-res-name').value.trim();
+      const address = document.getElementById('new-res-address').value.trim();
+      const voter = document.getElementById('new-res-voter').value;
+
+      if (!name) return;
+
+      const newRes = {
+        id: 'RES-00' + (residentsData.length + 1),
+        fullName: name,
+        address: address || OFFICIAL_ADDRESS,
+        voterStatus: voter,
+        registeredDate: new Date().toISOString().split('T')[0]
+      };
+
+      residentsData.unshift(newRes);
+      saveResidents();
+      renderAdminResidentsTable();
+      renderAdminOverview();
+
+      alert(`Resident Registered Successfully!\n\nName: ${name}\nAddress: ${newRes.address}`);
+      closeAddResidentModal();
+      document.getElementById('add-resident-form').reset();
+    }
+
+    // -------------------------------------------------------------------------
+    // 9. ANNOUNCEMENTS (ENGLISH ONLY)
+    // -------------------------------------------------------------------------
+    function renderAnnouncementsFeed(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.innerHTML = '';
+      if (announcementsData.length === 0) {
+        container.innerHTML = `<p style="color:#94a3b8; text-align:center; padding:20px;">No public announcements posted at this time.</p>`;
+        return;
+      }
+
+      announcementsData.forEach(ann => {
+        const card = document.createElement('div');
+        card.className = 'announcement-card';
+        card.innerHTML = `
+          <div class="announcement-meta">
+            <span class="announcement-category">${ann.category}</span>
+            <span class="announcement-date">📅 ${ann.date}</span>
+          </div>
+          <h4 class="announcement-title">${ann.title}</h4>
+          <p class="announcement-content">${ann.content}</p>
+          <div class="announcement-author">Issued by: <strong>${ann.author}</strong></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderAdminAnnouncementsList() {
+      renderAnnouncementsFeed('admin-announcements-list');
+    }
+
+    function handlePostAnnouncement(event) {
+      event.preventDefault();
+      const title = document.getElementById('ann-title').value.trim();
+      const category = document.getElementById('ann-category').value;
+      const author = document.getElementById('ann-author').value.trim();
+      const content = document.getElementById('ann-content').value.trim();
+
+      if (!title || !content) {
+        alert('Please fill out both the announcement title and content.');
+        return;
+      }
+
+      const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+      const newAnn = {
+        id: 'ann-' + Date.now(),
+        title: title,
+        category: category,
+        date: todayFormatted,
+        author: author || 'Office of the Punong Barangay',
+        content: content
+      };
+
+      announcementsData.unshift(newAnn);
+      saveAnnouncements();
+
+      alert(`Announcement Published Successfully!\n\nTitle: "${title}"\nIt is now live on the citizen bulletin board.`);
+
+      document.getElementById('ann-title').value = '';
+      document.getElementById('ann-content').value = '';
+
+      renderAdminAnnouncementsList();
+      renderAdminOverview();
+    }
+
+    // -------------------------------------------------------------------------
+    // 10. CERTIFICATE PREVIEW & PRINT (ENGLISH ONLY)
+    // -------------------------------------------------------------------------
+    function openCertModal(requestId) {
+      const req = requestsData.find(r => r.id === requestId);
+      if (!req) return;
+
+      document.getElementById('cert-modal-header-title').textContent = `Official Document: ${req.documentType}`;
+      document.getElementById('cert-print-title').textContent = req.documentType.toUpperCase();
+      document.getElementById('cert-print-name').textContent = req.residentName;
+      const sitioEl = document.getElementById('cert-print-sitio');
+      if (sitioEl) sitioEl.textContent = 'Sitio Matabang';
+      document.getElementById('cert-print-purpose').textContent = req.purpose;
+      document.getElementById('cert-print-date').textContent = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      document.getElementById('modal-certificate').classList.add('active');
+    }
+
+    function closeCertModal() {
+      document.getElementById('modal-certificate').classList.remove('active');
+    }
+
+    // Modal background click dismissal
+    window.onclick = function(event) {
+      const certModal = document.getElementById('modal-certificate');
+      const resModal = document.getElementById('modal-add-resident');
+      const forgotModal = document.getElementById('modal-forgot-password');
+      if (event.target === certModal) {
+        closeCertModal();
+      }
+      if (event.target === resModal) {
+        closeAddResidentModal();
+      }
+      if (event.target === forgotModal) {
+        closeForgotPasswordModal();
+      }
+    };
+
+    // -------------------------------------------------------------------------
+    // 11. STARTUP INITIALIZATION
+    // -------------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', () => {
+      initData();
+    });
+  </script>
+</body>
+</html>
